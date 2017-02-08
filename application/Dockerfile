@@ -1,4 +1,4 @@
-FROM java:8-jre
+FROM registry.eu-gb.bluemix.net/thesis/java:8-jre
 
 MAINTAINER Alessandro Fael Garcia <alessfg@hotmail.com>
 
@@ -22,8 +22,8 @@ RUN chown -R ethercis:ethercis /home/ethercis/logs \
   && chown -R ethercis:ethercis /var/opt/ecis
 
 # Copy EtherCIS files into their corresponding directories
-COPY ./ethercis-1.1.0/conf /etc/opt/ecis
-COPY ./ethercis-1.1.0/bin /opt/ecis/bin
+COPY ./ethercis-1.1.0/conf /etc/opt/ecis/
+COPY ./ethercis-1.1.0/bin /opt/ecis/bin/
 COPY ./ethercis-1.1.0/lib/application /opt/ecis/lib/application
 COPY ./ethercis-1.1.0/lib/deploy /opt/ecis/lib/deploy
 COPY ./ethercis-1.1.0/lib/system /opt/ecis/lib/system
@@ -45,7 +45,7 @@ WORKDIR /opt/ecis/bin
 # Wait until database is available
 # Then proceed to populate database and start server
 # Output server log to console
-CMD ./wait-for-it.sh postgres:5432 -t 60 && \
+CMD ./wait-for-it.sh postgres:5432 -t 120 && \
   ./populate-concept.sh && \
   ./ecis-server.sh start && \
   tail -f /var/opt/ecis/ethercis_test.log

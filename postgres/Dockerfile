@@ -1,4 +1,4 @@
-FROM postgres:9.4
+FROM registry.eu-gb.bluemix.net/thesis/postgres:9.4
 
 MAINTAINER Alessandro Fael Garcia <alessfg@hotmail.com>
 
